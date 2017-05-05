@@ -3,12 +3,7 @@ require_relative '../lib/coordinates'
 
 RSpec.describe Cell do
 
-  it "is dead" do
-    cell = Cell.new([])
-    expect(cell.position).to eq([])
-  end
-
-  it "is alive and has position [0,0]" do
+  it "is alive and has coordinates 0,0" do
     cell = Cell.new([0,0])
     x = cell.position[0]
     y = cell.position[1]

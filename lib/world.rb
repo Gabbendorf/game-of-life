@@ -1,18 +1,10 @@
 class World
 
-  attr_reader :cells
-
-  def initialize(cells)
-    @cells = cells
+  def initialize
+    @cells = []
   end
 
   def evolve
-    if @cells.length <= 2
-      []
-    end
-  end
-
-  def neighbour?
 
   end
 
