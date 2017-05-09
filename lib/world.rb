@@ -7,10 +7,17 @@ class World
   end
 
   def evolve
-    if @cells.size == 3
-      @cells.pop(2)
+    next_generation = []
+    if @cells.size > 2
+      @cells.each {|cell|
+        neighbours = count_neighbours(cell.position)
+        if neighbours == 2 || neighbours == 3
+          next_generation.push(cell)
+        end
+      }
+      @cells = next_generation
     else
-      @cells = []
+      @cells = next_generation
     end
   end
 
