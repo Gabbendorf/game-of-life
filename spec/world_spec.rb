@@ -35,11 +35,11 @@ RSpec.describe World do
     second_cell = Cell.new([0,1])
     third_cell = Cell.new([1,0])
     world = World.new([first_cell, second_cell, third_cell])
-    expect(world.neighbours([0,0])).to eq(2)
-    expect(world.neighbours([0,1])).to eq(2)
-    expect(world.neighbours([1,0])).to eq(2)
-    expect(world.neighbours([1,2])).to eq(1)
-    expect(world.neighbours([2,2])).to eq(0)
+    expect(world.count_neighbours([0,0])).to eq(2)
+    expect(world.count_neighbours([0,1])).to eq(2)
+    expect(world.count_neighbours([1,0])).to eq(2)
+    expect(world.count_neighbours([1,2])).to eq(1)
+    expect(world.count_neighbours([2,2])).to eq(0)
   end
 
 end

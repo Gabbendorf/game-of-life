@@ -8,19 +8,16 @@ class World
 
   def evolve
     if @cells.size == 3
-      # @cells.each do |cell|
-      if neighbours?(@cells[0],@cells[1]) && neighbours?(@cells[0],@cells[2])
-        @cells.pop(2)
-      end
-      @cells
+      @cells.pop(2)
+    else
+      @cells = []
     end
-    @cells = []
   end
 
-  def neighbours(position)
+  def potential_neighbours(position)
     x = position[0]
     y = position[1]
-    potential_neighbours = [
+    [
       [x-1,y+1],
       [x,y+1],
       [x+1,y+1],
@@ -30,9 +27,13 @@ class World
       [x-1,y-1],
       [x-1,y]
     ]
+  end
+
+  def count_neighbours(position)
+    neighbours = potential_neighbours(position)
     count_of_neighbours = []
     @cells.each do |cell|
-      if potential_neighbours.include?(cell.position)
+      if neighbours.include?(cell.position)
         count_of_neighbours.push(cell)
       end
     end
