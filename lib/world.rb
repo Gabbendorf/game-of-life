@@ -8,7 +8,6 @@ class World
 
   def evolve
     next_generation = []
-    if @cells.size > 2
       @cells.each {|cell|
         neighbours = count_neighbours(cell.position)
         if neighbours == 2 || neighbours == 3
@@ -16,9 +15,6 @@ class World
         end
       }
       @cells = next_generation
-    else
-      @cells = next_generation
-    end
   end
 
   def potential_neighbours(position)
