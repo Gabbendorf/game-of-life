@@ -43,4 +43,8 @@ class World
     count_of_neighbours.size
   end
 
+  def cell?(position)
+    @cells.all? { |cell| cell.position == position }
+  end
+
 end

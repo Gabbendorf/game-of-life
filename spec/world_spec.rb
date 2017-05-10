@@ -42,4 +42,24 @@ RSpec.describe World do
     expect(world.count_neighbours([2,2])).to eq(0)
   end
 
+  it "returns true if there is a cell in a position" do
+    cell = Cell.new([0,0])
+    world = World.new([cell])
+    expect(world.cell?([0,0])).to eq(true)
+  end
+
+  it "returns false if there is no cell in a position" do
+    cell = Cell.new([1,0])
+    world = World.new([cell])
+    expect(world.cell?([0,0])).to eq(false)
+  end
+
+  xit "resuscitates a dead cell if this has exactly 3 neighbours" do
+    first_cell = Cell.new([0,0])
+    second_cell = Cell.new([0,1])
+    third_cell = Cell.new([1,0])
+    world = World.new([first_cell, second_cell, third_cell])
+    world.cell?([1, 1]).to eq(true)
+  end
+
 end
