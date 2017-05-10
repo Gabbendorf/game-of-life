@@ -9,15 +9,15 @@ class World
   def evolve
     next_generation = []
       @cells.each {|cell|
-        neighbours = count_neighbours(cell.position)
-        if neighbours == 2 || neighbours == 3
+        neighbours_count = count_live_neighbours(cell.position)
+        if neighbours_count == 2 || neighbours_count == 3
           next_generation.push(cell)
         end
       }
       @cells = next_generation
   end
 
-  def potential_neighbours(position)
+  def neighbouring_positions(position)
     x = position[0]
     y = position[1]
     [
@@ -32,19 +32,9 @@ class World
     ]
   end
 
-  def count_neighbours(position)
-    neighbours = potential_neighbours(position)
-    count_of_neighbours = []
-    @cells.each do |cell|
-      if neighbours.include?(cell.position)
-        count_of_neighbours.push(cell)
-      end
-    end
-    count_of_neighbours.size
-  end
-
-  def cell?(position)
-    @cells.all? { |cell| cell.position == position }
+  def count_live_neighbours(position)
+    all_neighbouring_positions = neighbouring_positions(position)
+    @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
 end
