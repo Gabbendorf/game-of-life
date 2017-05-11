@@ -38,7 +38,14 @@ class World
   end
 
   def empty_positions_around_live_cell(position)
-
+    all_neighbouring_positions = neighbouring_positions(position)
+    empty_positions = []
+    all_neighbouring_positions.each do |position|
+      if !cells_positions.include?(position)
+        empty_positions.push(position)
+      end
+    end
+    empty_positions
   end
 
   def cells_positions

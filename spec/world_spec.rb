@@ -72,7 +72,7 @@ RSpec.describe World do
       expect(world.cells).to eq([first_cell, second_cell, third_cell, Cell.new([1,1])])
     end
 
-    xit "returns empty positions around a cell" do
+    it "returns empty positions around a cell" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([0,1])
       world = World.new([first_cell, second_cell])
