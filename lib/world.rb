@@ -10,7 +10,7 @@ class World
     next_generation = []
       @cells.each {|cell|
         neighbours_count = count_live_neighbours(cell.position)
-        if neighbours_count == 2 || neighbours_count == 3
+        if ideal_number_of_neighbours(neighbours_count)
           next_generation.push(cell)
         end
       }
@@ -35,6 +35,10 @@ class World
   def count_live_neighbours(position)
     all_neighbouring_positions = neighbouring_positions(position)
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
+  end
+
+  def ideal_number_of_neighbours(count)
+    count == 2 || count == 3
   end
 
 end
