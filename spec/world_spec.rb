@@ -84,9 +84,10 @@ RSpec.describe World do
     it "returns positions of all cells" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([0,1])
-      world = World.new([first_cell, second_cell])
+      third_cell = Cell.new([20,5])
+      world = World.new([first_cell, second_cell, third_cell])
 
-      expect(world.cells_positions).to eq([[0,0], [0,1]])
+      expect(world.cells_positions).to eq([[0,0], [0,1], [20,5]])
     end
   end
 end

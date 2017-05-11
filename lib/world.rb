@@ -49,11 +49,7 @@ class World
   end
 
   def cells_positions
-    positions = []
-    @cells.each do |cell|
-      positions.push(cell.position)
-    end
-    positions
+    @cells.map {|cell| cell.position }
   end
 
   def ideal_number_of_neighbours(count)
