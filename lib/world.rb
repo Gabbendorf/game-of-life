@@ -13,6 +13,18 @@ class World
         if ideal_number_of_neighbours(neighbours_count)
           next_generation.push(cell)
         end
+        dead_neighbours = dead_cells_around_live_cell(cell.position)
+        dead_neighbours.each do |dead_cell|
+          count = count_live_neighbours(dead_cell)
+          dead_cells = []
+          if count == 3
+            dead_cells.push(dead_cell)
+          end
+          dead_cells.uniq.each do |cell|
+            new_cell = new_instance_of_cell(cell)
+            @cells.push(new_cell)
+          end
+        end
       }
       @cells = next_generation
   end
@@ -37,7 +49,7 @@ class World
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
-  def empty_positions_around_live_cell(position)
+  def dead_cells_around_live_cell(position)
     all_neighbouring_positions = neighbouring_positions(position)
     empty_positions = []
     all_neighbouring_positions.each do |position|
@@ -54,6 +66,10 @@ class World
 
   def ideal_number_of_neighbours(count)
     count == 2 || count == 3
+  end
+
+  def new_instance_of_cell(position)
+    Cell.new(position)
   end
 
 end

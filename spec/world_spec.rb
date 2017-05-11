@@ -61,7 +61,7 @@ RSpec.describe World do
   end
 
   describe "World applies the last rule concerning dead cells" do
-    xit "resuscitates a dead cell if it has exactly 3 neighbours" do
+    it "resuscitates a dead cell if it has exactly 3 neighbours" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([1,0])
       third_cell = Cell.new([0,1])
@@ -69,7 +69,9 @@ RSpec.describe World do
 
       world.evolve
 
-      expect(world.cells).to eq([first_cell, second_cell, third_cell, Cell.new([1,1])])
+      expect(world.cells_positions).to eq([[0,0], [1,0], [0,1], [1,1]])
+
+      # expect(world.cells).to eq([first_cell, second_cell, third_cell, Cell.new([1,1])])
     end
 
     it "returns empty positions around a cell" do
@@ -77,8 +79,8 @@ RSpec.describe World do
       second_cell = Cell.new([0,1])
       world = World.new([first_cell, second_cell])
 
-      expect(world.empty_positions_around_live_cell(first_cell.position)).to eq([[-1,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
-      expect(world.empty_positions_around_live_cell(second_cell.position)).to eq([[-1,2],[0,2],[1,2],[1,1],[1,0],[-1,0],[-1,1]])
+      expect(world.dead_cells_around_live_cell(first_cell.position)).to eq([[-1,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
+      expect(world.dead_cells_around_live_cell(second_cell.position)).to eq([[-1,2],[0,2],[1,2],[1,1],[1,0],[-1,0],[-1,1]])
     end
 
     it "returns positions of all cells" do
