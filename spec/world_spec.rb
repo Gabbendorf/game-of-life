@@ -5,7 +5,7 @@ RSpec.describe World do
 
   let (:world) {World.new}
 
-  describe "World applies the first 3 rules concerning live cells" do
+  describe "applies the first 3 rules concerning live cells" do
     it "returns no live cells if there is only 1 cell" do
       cell = Cell.new([1,1])
       world = World.new([cell])
@@ -60,7 +60,7 @@ RSpec.describe World do
     end
   end
 
-  describe "World applies the last rule concerning dead cells" do
+  describe "applies the last rule concerning dead cells" do
     it "resuscitates a dead cell if it has exactly 3 neighbours" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([1,0])
@@ -70,8 +70,6 @@ RSpec.describe World do
       world.evolve
 
       expect(world.cells_positions).to eq([[0,0], [1,0], [0,1], [1,1]])
-
-      # expect(world.cells).to eq([first_cell, second_cell, third_cell, Cell.new([1,1])])
     end
 
     it "returns empty positions around a cell" do

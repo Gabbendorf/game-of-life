@@ -12,18 +12,7 @@ class World
       neighbours_count = count_live_neighbours(cell.position)
         if ideal_number_of_neighbours(neighbours_count)
           next_generation.push(cell)
-        end
-        dead_neighbours = dead_cells_around_live_cell(cell.position)
-        dead_neighbours.each do |dead_cell|
-          count = count_live_neighbours(dead_cell)
-          dead_cells = []
-          if count == 3
-            dead_cells.push(dead_cell)
-          end
-          dead_cells.uniq.each do |cell|
-            new_cell = new_instance_of_cell(cell)
-            @cells.push(new_cell)
-          end
+          resuscitate_cell(cell.position)
         end
       }
       @cells = next_generation
@@ -70,6 +59,21 @@ class World
 
   def new_instance_of_cell(position)
     Cell.new(position)
+  end
+
+  def resuscitate_cell(position)
+    dead_neighbours = dead_cells_around_live_cell(position)
+    dead_neighbours.each do |dead_cell|
+      count = count_live_neighbours(dead_cell)
+      dead_cells = []
+      if count == 3
+        dead_cells.push(dead_cell)
+      end
+      dead_cells.uniq.each do |cell|
+        new_cell = new_instance_of_cell(cell)
+        @cells.push(new_cell)
+      end
+    end
   end
 
 end
