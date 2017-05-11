@@ -9,7 +9,7 @@ class World
   def evolve
     next_generation = []
       @cells.each {|cell|
-        neighbours_count = count_live_neighbours(cell.position)
+      neighbours_count = count_live_neighbours(cell.position)
         if ideal_number_of_neighbours(neighbours_count)
           next_generation.push(cell)
         end

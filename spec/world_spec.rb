@@ -8,7 +8,9 @@ RSpec.describe World do
   it "returns no live cells if there is only 1 cell" do
     cell = Cell.new([1,1])
     world = World.new([cell])
+
     world.evolve
+
     expect(world.cells).to eq([])
   end
 
@@ -17,7 +19,12 @@ RSpec.describe World do
     second_cell = Cell.new([2,2])
     third_cell = Cell.new([0,0])
     world = World.new([first_cell, second_cell, third_cell])
+    expect(world.count_live_neighbours([1,1])).to eq(2)
+    expect(world.count_live_neighbours([2,2])).to eq(1)
+    expect(world.count_live_neighbours([0,0])).to eq(1)
+
     world.evolve
+
     expect(world.cells).to eq([first_cell])
   end
 
@@ -26,7 +33,9 @@ RSpec.describe World do
     second_cell = Cell.new([0,20])
     third_cell = Cell.new([1,1])
     world = World.new([first_cell, second_cell, third_cell])
+
     world.evolve
+
     expect(world.cells).to eq([])
   end
 
@@ -35,11 +44,19 @@ RSpec.describe World do
     second_cell = Cell.new([0,1])
     third_cell = Cell.new([1,0])
     world = World.new([first_cell, second_cell, third_cell])
-    expect(world.count_live_neighbours([0,0])).to eq(2)
-    expect(world.count_live_neighbours([0,1])).to eq(2)
-    expect(world.count_live_neighbours([1,0])).to eq(2)
-    expect(world.count_live_neighbours([1,2])).to eq(1)
-    expect(world.count_live_neighbours([2,2])).to eq(0)
+
+    neighbours_first_cell = world.count_live_neighbours([0,0])
+    neighbours_second_cell = world.count_live_neighbours([0,1])
+    neighbours_third_cell = world.count_live_neighbours([1,0])
+    neighbours_empty_position = world.count_live_neighbours([1,2])
+    neighbours_empty_position2 = world.count_live_neighbours([2,2])
+
+    expect(neighbours_first_cell).to eq(2)
+    expect(neighbours_second_cell).to eq(2)
+    expect(neighbours_third_cell).to eq(2)
+    expect(neighbours_empty_position).to eq(1)
+    expect(neighbours_empty_position2).to eq(0)
+
   end
 
 end
