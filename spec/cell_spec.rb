@@ -1,5 +1,4 @@
 require_relative '../lib/cell'
-require_relative '../lib/coordinates'
 
 RSpec.describe Cell do
 

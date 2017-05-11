@@ -37,6 +37,18 @@ class World
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
+  def empty_positions_around_live_cell(position)
+
+  end
+
+  def cells_positions
+    positions = []
+    @cells.each do |cell|
+      positions.push(cell.position)
+    end
+    positions
+  end
+
   def ideal_number_of_neighbours(count)
     count == 2 || count == 3
   end
