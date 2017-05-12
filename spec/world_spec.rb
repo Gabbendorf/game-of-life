@@ -66,20 +66,42 @@ RSpec.describe World do
       second_cell = Cell.new([1,0])
       third_cell = Cell.new([0,1])
       world = World.new([first_cell, second_cell, third_cell])
+      expect(world.count_live_neighbours([1,1])).to eq(3)
 
       world.evolve
 
       expect(world.cells_positions).to eq([[0,0], [1,0], [0,1], [1,1]])
     end
 
-    it "returns empty positions around a cell" do
+    xit "resuscitates 2 dead cells if they have exactly 3 neighbours" do
+      first_cell = Cell.new([0,0])
+      second_cell = Cell.new([1,0])
+      third_cell = Cell.new([0,1])
+      fourth_cell = Cell.new([2,-1])
+      world = World.new([first_cell, second_cell, third_cell, fourth_cell])
+      expect(world.count_live_neighbours([1,1])).to eq(3)
+
+      world.evolve
+
+      expect(world.cells_positions).to eq([[0,0], [1,0], [0,1], [1,1], [1,-1]])
+    end
+
+    it "returns empty positions around cells" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([0,1])
       world = World.new([first_cell, second_cell])
 
-      expect(world.dead_cells_around_live_cell(first_cell.position)).to eq([[-1,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
-      expect(world.dead_cells_around_live_cell(second_cell.position)).to eq([[-1,2],[0,2],[1,2],[1,1],[1,0],[-1,0],[-1,1]])
+      expect(world.empty_positions_around_live_cells).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0])
     end
+
+    # it "returns empty positions around cells" do
+    #   first_cell = Cell.new([0,0])
+    #   second_cell = Cell.new([0,1])
+    #   world = World.new([first_cell, second_cell])
+    #
+    #   expect(world.empty_positions_around_live_cell([0,0])).to eq([[-1,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
+    #   expect(world.empty_positions_around_live_cell([0,1])).to eq([[-1,2],[0,2],[1,2],[1,1],[1,0],[-1,0],[-1,1]])
+    # end
 
     it "returns positions of all cells" do
       first_cell = Cell.new([0,0])
