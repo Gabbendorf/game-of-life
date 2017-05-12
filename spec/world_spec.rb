@@ -73,7 +73,7 @@ RSpec.describe World do
       expect(world.cells_positions).to eq([[0,0], [1,0], [0,1], [1,1]])
     end
 
-    xit "resuscitates 2 dead cells if they have exactly 3 neighbours" do
+    it "resuscitates 2 dead cells if they have exactly 3 neighbours" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([1,0])
       third_cell = Cell.new([0,1])
@@ -89,11 +89,12 @@ RSpec.describe World do
     it "returns empty positions around cells" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([0,1])
-      world = World.new([first_cell, second_cell])
+      third_cell = Cell.new([1,1])
+      world = World.new([first_cell, second_cell, third_cell])
 
-      positions_around_all_cells = world.positions_around_all_live_cells
+      potential_resuscitating_cells = world.positions_of_potential_resuscitating_cells
 
-      expect(world.positions_of_potential_resuscitating_cells(positions_around_all_cells)).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0])
+      expect(potential_resuscitating_cells).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[2,2],[2,1],[2,0])
     end
 
     it "returns positions of all cells" do
