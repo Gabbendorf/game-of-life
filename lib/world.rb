@@ -49,14 +49,8 @@ class World
     all_positions_around_cells
   end
 
-  def positions_of_potential_resuscitating_cells(positions)
-    positions_of_potential_resuscitating_cells = []
-    positions.each do |position|
-      if !cells_positions.include?(position)
-        positions_of_potential_resuscitating_cells.push(position)
-      end
-    end
-    positions_of_potential_resuscitating_cells.uniq
+  def positions_of_potential_resuscitating_cells(empty_positions)
+    empty_positions.select {|empty_position| !cells_positions.include?(empty_position)}.uniq
   end
 
   def cells_positions
