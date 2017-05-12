@@ -91,17 +91,10 @@ RSpec.describe World do
       second_cell = Cell.new([0,1])
       world = World.new([first_cell, second_cell])
 
-      expect(world.empty_positions_around_live_cells).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0])
-    end
+      positions_around_all_cells = world.positions_around_all_live_cells
 
-    # it "returns empty positions around cells" do
-    #   first_cell = Cell.new([0,0])
-    #   second_cell = Cell.new([0,1])
-    #   world = World.new([first_cell, second_cell])
-    #
-    #   expect(world.empty_positions_around_live_cell([0,0])).to eq([[-1,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
-    #   expect(world.empty_positions_around_live_cell([0,1])).to eq([[-1,2],[0,2],[1,2],[1,1],[1,0],[-1,0],[-1,1]])
-    # end
+      expect(world.positions_of_potential_resuscitating_cells(positions_around_all_cells)).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0])
+    end
 
     it "returns positions of all cells" do
       first_cell = Cell.new([0,0])

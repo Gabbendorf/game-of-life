@@ -38,33 +38,26 @@ class World
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
-  def empty_positions_around_live_cells
-    positions_of_potential_resuscitating_cells = []
-    all_neighbouring_positions = []
+  def positions_around_all_live_cells
+    all_positions_around_cells = []
     @cells.each { |cell|
       neighbours_positions = neighbouring_positions(cell.position)
         neighbours_positions.each do |position|
-          all_neighbouring_positions.push(position)
+          all_positions_around_cells.push(position)
         end
     }
-    all_neighbouring_positions.each do |neighbouring_position|
-      if !cells_positions.include?(neighbouring_position)
-        positions_of_potential_resuscitating_cells.push(neighbouring_position)
-      end
-    end
-      positions_of_potential_resuscitating_cells.uniq
+    all_positions_around_cells
   end
 
-  # def empty_positions_around_live_cell(position)
-  #   all_neighbouring_positions = neighbouring_positions(position)
-  #   empty_positions_with_neighbours = []
-  #   all_neighbouring_positions.each do |neighbouring_position|
-  #     if !cells_positions.include?(neighbouring_position)
-  #       empty_positions_with_neighbours.push(neighbouring_position)
-  #     end
-  #   end
-  #   empty_positions_with_neighbours
-  # end
+  def positions_of_potential_resuscitating_cells(positions)
+    positions_of_potential_resuscitating_cells = []
+    positions.each do |position|
+      if !cells_positions.include?(position)
+        positions_of_potential_resuscitating_cells.push(position)
+      end
+    end
+    positions_of_potential_resuscitating_cells.uniq
+  end
 
   def cells_positions
     @cells.map {|cell| cell.position }
