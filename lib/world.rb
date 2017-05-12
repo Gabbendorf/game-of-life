@@ -8,20 +8,43 @@ class World
 
   def evolve
     next_generation = []
-      @cells.each {|cell|
-      neighbours_count = count_live_neighbours(cell.position)
-        if number_of_neighbours_to_survive(neighbours_count)
-          next_generation.push(cell)
-        end
-      }
-      positions_of_potential_resuscitating_cells.each do |position|
-        count = count_live_neighbours(position)
-        if number_of_neighbours_to_resuscitate(count)
-          new_cell = new_instance_of_cell(position)
-          next_generation.push(new_cell)
-        end
+    @cells.each do |cell|
+      if survive?(cell.position)
+        next_generation.push(cell)
       end
-      @cells = next_generation
+    end
+    positions_of_potential_resuscitating_cells.each do |position|
+      if resuscitate?(position)
+        new_cell = new_instance_of_cell(position)
+        next_generation.push(new_cell)
+      end
+    end
+    @cells = next_generation
+  end
+
+      # @cells.each {|cell|
+      # neighbours_count = count_live_neighbours(cell.position)
+      #   if number_of_neighbours_to_survive(neighbours_count)
+      #     next_generation.push(cell)
+      #   end
+      # }
+      # positions_of_potential_resuscitating_cells.each do |position|
+      #   count = count_live_neighbours(position)
+      #   if number_of_neighbours_to_resuscitate(count)
+      #     new_cell = new_instance_of_cell(position)
+      #     next_generation.push(new_cell)
+      #   end
+      # end
+      # @cells = next_generation
+
+  def survive?(cell_position)
+    neighbours_count = count_live_neighbours(cell_position)
+    number_of_neighbours_to_survive(neighbours_count)
+  end
+
+  def resuscitate?(empty_position)
+    neighbours_count = count_live_neighbours(empty_position)
+    number_of_neighbours_to_resuscitate(neighbours_count)
   end
 
   def neighbouring_positions(position)
