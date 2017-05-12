@@ -15,7 +15,7 @@ class World
     end
     positions_of_potential_resuscitating_cells.each do |position|
       if resuscitate?(position)
-        new_cell = new_instance_of_cell(position)
+        new_cell = Cell.new(position)
         next_generation.push(new_cell)
       end
     end
@@ -70,10 +70,6 @@ class World
 
   def number_of_neighbours_to_resuscitate(count)
     count == 3
-  end
-
-  def new_instance_of_cell(position)
-    Cell.new(position)
   end
 
 end
