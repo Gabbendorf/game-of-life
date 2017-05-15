@@ -7,14 +7,29 @@ class World
   end
 
   def evolve
-    next_generation = []
-      @cells.each {|cell|
-      neighbours_count = count_live_neighbours(cell.position)
-        if ideal_number_of_neighbours(neighbours_count)
-          next_generation.push(cell)
-        end
-      }
-      @cells = next_generation
+  next_generation = []
+    @cells.each do |cell|
+      if survive?(cell.position)
+        next_generation.push(cell)
+      end
+    end
+    positions_of_potential_new_cells.each do |position|
+      if resuscitate?(position)
+        new_cell = Cell.new(position)
+        next_generation.push(new_cell)
+      end
+    end
+    @cells = next_generation
+  end
+
+  def survive?(cell_position)
+    neighbours_count = neighbours_count(cell_position)
+    ideal_neighbours_to_survive?(neighbours_count)
+  end
+
+  def resuscitate?(empty_position)
+    neighbours_count = neighbours_count(empty_position)
+    ideal_neighbours_to_resuscitate?(neighbours_count)
   end
 
   def neighbouring_positions(position)
@@ -32,13 +47,33 @@ class World
     ]
   end
 
-  def count_live_neighbours(position)
+  def neighbours_count(position)
     all_neighbouring_positions = neighbouring_positions(position)
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
-  def ideal_number_of_neighbours(count)
+  def positions_of_potential_new_cells
+    all_positions_around_cells = []
+    @cells.each { |cell|
+      neighbouring_positions(cell.position).each { |position| all_positions_around_cells.push(position)}
+    }
+    all_positions_around_cells.select {|empty_position| !cells_positions.include?(empty_position)}.uniq
+  end
+
+  def cells_positions
+    @cells.map {|cell| cell.position }
+  end
+
+  def ideal_neighbours_to_survive?(count)
     count == 2 || count == 3
+  end
+
+  def ideal_neighbours_to_resuscitate?(count)
+    count == 3
+  end
+
+  def empty?
+    @cells.empty?
   end
 
 end
