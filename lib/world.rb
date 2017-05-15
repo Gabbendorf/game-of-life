@@ -7,7 +7,7 @@ class World
   end
 
   def evolve
-  next_generation = []
+    next_generation = []
     @cells.each do |cell|
       if survive?(cell.position)
         next_generation.push(cell)
