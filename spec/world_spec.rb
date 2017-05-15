@@ -68,15 +68,11 @@ RSpec.describe World do
       fourth_cell = Cell.new([2,-1])
       fifth_cell = Cell.new([-1,-1])
       world = World.new([first_cell, second_cell, third_cell, fourth_cell, fifth_cell])
-
-      expect(world.neighbours_count([1,1])).to eq(3)
-      expect(world.neighbours_count([-1,0])).to eq(3)
-      expect(world.neighbours_count([0,-1])).to eq(3)
-      expect(world.neighbours_count([1,-1])).to eq(3)
+      positions_of_dead_cells_with_3_neighbours = [[1,1], [1,-1],[0,-1],[-1,0]]
 
       world.evolve
 
-      expect(world.cells_positions).to contain_exactly([0,0], [1,0], [0,1], [1,1], [1,-1],[0,-1],[-1,0])
+      expect(world.cells_positions).to eq([[0,0], [1,0], [0,1]] + positions_of_dead_cells_with_3_neighbours)
     end
 
     it "returns positions around live cells where new cells could resuscitate" do
