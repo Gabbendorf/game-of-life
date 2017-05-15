@@ -13,7 +13,7 @@ class World
         next_generation.push(cell)
       end
     end
-    positions_of_potential_resuscitating_cells.each do |position|
+    positions_of_potential_new_cells.each do |position|
       if resuscitate?(position)
         new_cell = Cell.new(position)
         next_generation.push(new_cell)
@@ -23,12 +23,12 @@ class World
   end
 
   def survive?(cell_position)
-    neighbours_count = count_live_neighbours(cell_position)
+    neighbours_count = neighbours_count(cell_position)
     ideal_neighbours_to_survive?(neighbours_count)
   end
 
   def resuscitate?(empty_position)
-    neighbours_count = count_live_neighbours(empty_position)
+    neighbours_count = neighbours_count(empty_position)
     ideal_neighbours_to_resuscitate?(neighbours_count)
   end
 
@@ -47,12 +47,12 @@ class World
     ]
   end
 
-  def count_live_neighbours(position)
+  def neighbours_count(position)
     all_neighbouring_positions = neighbouring_positions(position)
     @cells.count {|cell| all_neighbouring_positions.include?(cell.position)}
   end
 
-  def positions_of_potential_resuscitating_cells
+  def positions_of_potential_new_cells
     all_positions_around_cells = []
     @cells.each { |cell|
       neighbouring_positions(cell.position).each { |position| all_positions_around_cells.push(position)}

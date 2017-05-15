@@ -20,9 +20,9 @@ RSpec.describe World do
       second_cell = Cell.new([2,2])
       third_cell = Cell.new([0,0])
       world = World.new([first_cell, second_cell, third_cell])
-      expect(world.count_live_neighbours([1,1])).to eq(2)
-      expect(world.count_live_neighbours([2,2])).to eq(1)
-      expect(world.count_live_neighbours([0,0])).to eq(1)
+      expect(world.neighbours_count([1,1])).to eq(2)
+      expect(world.neighbours_count([2,2])).to eq(1)
+      expect(world.neighbours_count([0,0])).to eq(1)
 
       world.evolve
 
@@ -41,17 +41,17 @@ RSpec.describe World do
     end
   end
 
-    it "returns how many live cells a position has around" do
+    it "returns the number of live neighbours" do
       first_cell = Cell.new([0,0])
       second_cell = Cell.new([0,1])
       third_cell = Cell.new([1,0])
       world = World.new([first_cell, second_cell, third_cell])
 
-      neighbours_first_cell = world.count_live_neighbours([0,0])
-      neighbours_second_cell = world.count_live_neighbours([0,1])
-      neighbours_third_cell = world.count_live_neighbours([1,0])
-      neighbours_empty_position = world.count_live_neighbours([1,2])
-      neighbours_empty_position2 = world.count_live_neighbours([2,2])
+      neighbours_first_cell = world.neighbours_count([0,0])
+      neighbours_second_cell = world.neighbours_count([0,1])
+      neighbours_third_cell = world.neighbours_count([1,0])
+      neighbours_empty_position = world.neighbours_count([1,2])
+      neighbours_empty_position2 = world.neighbours_count([2,2])
 
       expect(neighbours_first_cell).to eq(2)
       expect(neighbours_second_cell).to eq(2)
@@ -68,10 +68,10 @@ RSpec.describe World do
       fourth_cell = Cell.new([2,-1])
       fifth_cell = Cell.new([-1,-1])
       world = World.new([first_cell, second_cell, third_cell, fourth_cell, fifth_cell])
-      expect(world.count_live_neighbours([1,1])).to eq(3)
-      expect(world.count_live_neighbours([-1,0])).to eq(3)
-      expect(world.count_live_neighbours([0,-1])).to eq(3)
-      expect(world.count_live_neighbours([1,-1])).to eq(3)
+      expect(world.neighbours_count([1,1])).to eq(3)
+      expect(world.neighbours_count([-1,0])).to eq(3)
+      expect(world.neighbours_count([0,-1])).to eq(3)
+      expect(world.neighbours_count([1,-1])).to eq(3)
 
       world.evolve
 
@@ -84,7 +84,7 @@ RSpec.describe World do
       third_cell = Cell.new([1,1])
       world = World.new([first_cell, second_cell, third_cell])
 
-      potential_resuscitating_cells = world.positions_of_potential_resuscitating_cells
+      potential_resuscitating_cells = world.positions_of_potential_new_cells
 
       expect(potential_resuscitating_cells).to contain_exactly([-1,1],[-1,2],[0,2],[1,2],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[2,2],[2,1],[2,0])
     end
