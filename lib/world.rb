@@ -7,7 +7,7 @@ class World
   end
 
   def evolve
-    next_generation = []
+  next_generation = []
     @cells.each do |cell|
       if survive?(cell.position)
         next_generation.push(cell)
@@ -24,12 +24,12 @@ class World
 
   def survive?(cell_position)
     neighbours_count = count_live_neighbours(cell_position)
-    number_of_neighbours_to_survive(neighbours_count)
+    ideal_neighbours_to_survive?(neighbours_count)
   end
 
   def resuscitate?(empty_position)
     neighbours_count = count_live_neighbours(empty_position)
-    number_of_neighbours_to_resuscitate(neighbours_count)
+    ideal_neighbours_to_resuscitate?(neighbours_count)
   end
 
   def neighbouring_positions(position)
@@ -64,11 +64,11 @@ class World
     @cells.map {|cell| cell.position }
   end
 
-  def number_of_neighbours_to_survive(count)
+  def ideal_neighbours_to_survive?(count)
     count == 2 || count == 3
   end
 
-  def number_of_neighbours_to_resuscitate(count)
+  def ideal_neighbours_to_resuscitate?(count)
     count == 3
   end
 
