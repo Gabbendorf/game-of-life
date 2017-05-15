@@ -12,7 +12,7 @@ RSpec.describe World do
 
       world.evolve
 
-      expect(world.cells).to eq([])
+      expect(world.empty?).to eq(true)
     end
 
     it "returns cell with 2 neighbours" do
@@ -37,7 +37,7 @@ RSpec.describe World do
 
       world.evolve
 
-      expect(world.cells).to eq([])
+      expect(world.empty?).to eq(true)
     end
   end
 
@@ -68,6 +68,7 @@ RSpec.describe World do
       fourth_cell = Cell.new([2,-1])
       fifth_cell = Cell.new([-1,-1])
       world = World.new([first_cell, second_cell, third_cell, fourth_cell, fifth_cell])
+
       expect(world.neighbours_count([1,1])).to eq(3)
       expect(world.neighbours_count([-1,0])).to eq(3)
       expect(world.neighbours_count([0,-1])).to eq(3)

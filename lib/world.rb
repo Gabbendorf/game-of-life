@@ -72,4 +72,8 @@ class World
     count == 3
   end
 
+  def empty?
+    @cells.empty?
+  end
+
 end
